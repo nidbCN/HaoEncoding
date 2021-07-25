@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HaoEncoding.Extensions
+namespace HaoEncodingLib.Extensions
 {
     public static class ArrayExtension
     {

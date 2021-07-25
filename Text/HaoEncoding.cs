@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Text;
-using HaoEncoding.Extensions;
+using HaoEncodingLib.Extensions;
 
-namespace HaoEncoding.Text
+namespace HaoEncodingLib.Text
 {
     public class HaoEncoding : Encoding
     {
+        public static Encoding HaoCode => new HaoEncoding();
+
         private const char _charHao = '昊';
         private const char _charShen = '神';
 
@@ -84,21 +86,22 @@ namespace HaoEncoding.Text
                 return new char[0];
 
             var byteArrayInUtf8 = new byte[(bytes.Length / 24)];
+            var count = 0;
 
             // (UTF8)(HaoCode) byte[24 x ?] => (HaoCode(Bit)) char[8 x ?]: '昊' || '神' => (UTF8) byte[1 x ?]
-            for (int index = 0; index < bytes.Length; index += 24)
+            for (var i = 0; i < bytes.Length; i += 24)
             {
                 // (UTF8) byte[24] => (HaoCode(Bit)) char[8]: '昊' || '神'
-                var intInHaoCodeBit = UTF8.GetChars(bytes.Slice(index, 24).ToArray());
+                var intInHaoCodeBit = UTF8.GetChars(bytes.Slice(i, 24).ToArray());
 
                 // (HaoCode(Bit)) char[8] => (UTF8) byte[1]
                 int byteInUtf8 = 0;
-                for (var i = 0; i < 8; i++)
+                for (var j = 0; j < 8; j++)
                 {
-                    var bit = intInHaoCodeBit[i] == _charHao ? _bitHao : _bitShen;
-                    byteInUtf8 += bit << i;
+                    var bit = intInHaoCodeBit[j] == _charHao ? _bitHao : _bitShen;
+                    byteInUtf8 += bit << j;
                 }
-                byteArrayInUtf8[index] = (byte)byteInUtf8;
+                byteArrayInUtf8[count++] = (byte)byteInUtf8;
             }
 
             return UTF8.GetChars(byteArrayInUtf8);
