@@ -8,8 +8,8 @@ namespace HaoEncodingLib.Text
     {
         public static Encoding HaoCode => new HaoEncoding();
 
-        private const char _charHao = '昊';
-        private const char _charShen = '神';
+        private const char _charHao = '伞';
+        private const char _charShen = '菌';
 
         private const int _bitHao = 0;
         private const int _bitShen = 1;
