@@ -4,7 +4,7 @@ using HaoEncoding.Extensions;
 
 namespace HaoEncoding.Text
 {
-    public class HaoEncodeing : Encoding
+    public class HaoEncoding : Encoding
     {
         private const char _charHao = '昊';
         private const char _charShen = '神';
